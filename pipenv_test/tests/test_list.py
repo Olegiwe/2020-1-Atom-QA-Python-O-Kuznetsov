@@ -1,4 +1,3 @@
-import random
 import copy
 import pytest
 
@@ -17,11 +16,11 @@ class TestList:
 
         assert strs[3] == strs
 
-    @pytest.mark.parametrize('rnd', random.sample(range(100), 20))
+    @pytest.mark.parametrize('rnd', [0, 1, 49, 50, -1, -49, -50, -120])
     def test_list_index_error(self, rnd):
         nums = list(range(50))
-        if rnd < 50:
-            assert nums[rnd] == rnd
+        if -50 <= rnd < 50:
+            assert nums[rnd] == rnd or nums[rnd] == 50 + rnd
         else:
             with pytest.raises(IndexError):
                 assert nums[rnd]

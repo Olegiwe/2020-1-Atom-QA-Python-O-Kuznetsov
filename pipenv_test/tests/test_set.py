@@ -15,7 +15,10 @@ class TestSet:
 
         assert {*set1, 1, 4, 9, 16} == {1, 2, 3, 4, 9, 16}
 
-    @pytest.mark.parametrize('lst', [[random.randint(0, 3) for _ in range(1000)] for _ in range(20)])
+    @pytest.mark.parametrize('lst', [
+        [0, 1, 2, 3],
+        [0, 1, 2, 3, 0, 1, 2, 3, int((1j).real), int(1.0), int((2+2j).imag), int("3")], 
+        [random.randint(0, 3) for _ in range(30)]])
     def test_set_from_list_with_repetitions(self, lst):
         set1 = set(lst)
 

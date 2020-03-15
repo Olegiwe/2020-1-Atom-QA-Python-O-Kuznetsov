@@ -1,4 +1,3 @@
-import random
 import pytest
 
 
@@ -22,8 +21,8 @@ class TestStr:
 
         assert not "LIKE 'SALAR%'".isalnum()
 
-    @pytest.mark.parametrize('ind', random.sample(range(50), 10))
-    def test_str_index(slf, ind):
+    @pytest.mark.parametrize('ind', [0, 1, 25, 26, 100])
+    def test_str_index(self, ind):
         str1 = str()
         for i in range(25):
             str1 += (str(i) + "_")
@@ -31,14 +30,16 @@ class TestStr:
             with pytest.raises(ValueError):
                 str1.index(str(ind))
 
-    def test_str_format(self):
-        name = "Oleg"
-        age = "21"
+    @pytest.mark.parametrize('line', [
+        '{name} is {age} years old.'.format(name="Oleg", age="21"),
+        '{} is {} years old.'.format("Oleg", "21"),
+        '%s is %s years old.' % ("Oleg", "21"),
+        '{0} is {1} years old.'.format("Oleg", "21")
+    ])
+    def test_str_format(self, line):
         str0 = "Oleg is 21 years old."
-        str1 = f'{name} is {age} years old.'
-        str2 = '{name} is {age} years old.'.format(name="Oleg", age="21")
-        str3 = '{} is {} years old.'.format("Oleg", "21")
-        assert str0 == str1 and str0 == str2 and str0 == str3
+
+        assert str0 == line
 
     def test_str_split_to_words(self):
         str1 = "hello pytest"

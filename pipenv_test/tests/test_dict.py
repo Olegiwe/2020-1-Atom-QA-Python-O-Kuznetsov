@@ -25,7 +25,17 @@ class TestDict:
         assert len(dict1) == 3
         assert list(dict1.items()) == [(1, "v"), (2, "v"), (3, "v")]
 
-    @pytest.mark.parametrize('i', range(10))
+    @pytest.mark.parametrize('i', [
+        0,
+        1,
+        (1, 2),
+        complex(5j),
+        '7',
+        None,
+        float(3),
+        float('NaN'),
+        float('Inf')
+        ])
     def test_dict_key_error(self, i):
         dict1 = dict.fromkeys([1, 3, 5, 7, 9], "v")
         if i not in dict1:
@@ -35,5 +45,5 @@ class TestDict:
     def test_dict_del(self):
         dict1 = dict.fromkeys([1, 2, 3], "v")
 
-        del(dict1[2])
+        del dict1[2]
         assert list(dict1.keys()) == [1, 3]
