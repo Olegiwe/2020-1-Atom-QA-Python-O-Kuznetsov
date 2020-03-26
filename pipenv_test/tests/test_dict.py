@@ -27,20 +27,15 @@ class TestDict:
 
     @pytest.mark.parametrize('i', [
         0,
-        1,
-        (1, 2),
+        -1,
+        (3, 9),
         complex(5j),
         '7',
-        None,
-        float(3),
-        float('NaN'),
-        float('Inf')
         ])
     def test_dict_key_error(self, i):
         dict1 = dict.fromkeys([1, 3, 5, 7, 9], "v")
-        if i not in dict1:
-            with pytest.raises(KeyError):
-                assert dict1[i] == i
+        with pytest.raises(KeyError):
+            assert dict1[i] == "v"
 
     def test_dict_del(self):
         dict1 = dict.fromkeys([1, 2, 3], "v")
